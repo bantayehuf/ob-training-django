@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Blogs
+from .forms import BlogForm
 
 
 def index(request):
@@ -26,4 +27,20 @@ def sample_template(request):
     # Get one
     blog = Blogs.objects.get(pk=1)
     print(blog)
-    return render(request, 'welcome.html', context={'name': "Bantayehu", 'users': users})
+    # return render(request, 'welcome.html', context={'name': "Bantayehu", 'users': users})
+
+    return redirect('ob.index')
+
+
+def blog_mgt(request):
+    message = ''
+    if request.method == 'POST':
+        data = BlogForm(request.POST)
+
+        if data.is_valid():
+            message = 'Form sumited successfully'
+            print('Submited title is:- ', data.cleaned_data['title'])
+
+    form = BlogForm()
+
+    return render(request, 'blog.html', {'form': form, 'message': message})
