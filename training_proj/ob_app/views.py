@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
 from .models import Blogs
 from .forms import BlogForm
 
@@ -44,3 +46,8 @@ def blog_mgt(request):
     form = BlogForm()
 
     return render(request, 'blog.html', {'form': form, 'message': message})
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html', {'name': request.user.first_name})

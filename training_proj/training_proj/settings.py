@@ -93,6 +93,11 @@ DATABASES = {
     }
 }
 
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/ob/dashboard'
+
+LOGOUT_REDIRECT_URL = '/accounts/login'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
